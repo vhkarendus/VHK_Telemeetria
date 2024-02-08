@@ -1,0 +1,1 @@
+# VHK_Telemeetria
