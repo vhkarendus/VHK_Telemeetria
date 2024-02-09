@@ -6,7 +6,7 @@ Siin on andurid (sulgudes on anduri lühend).
 2. Voolu andur ([vool](/andurid/2.vool/README.md)) -> [@KLaidma](https://github.com/KLaidma)
 3. Pinge andur ([pinge](/andurid/3.pinge/README.md)) -> [@juljus](https://github.com/juljus)
 4. Temperatuuri andur ([temp](/andurid/4.temp/README.md)) -> [@paulkask](https://github.com/paulkask)
-5. GPS ([gps](/andurid/5.gps/README.md)) -> [@juljus] (https://github.com/juljus)
+5. GPS ([gps](/andurid/5.gps/README.md)) -> [@juljus](https://github.com/juljus)
 
 ### Kuidas arendus käib?
 1. Igaüks teeb uut branchi `dev_anduri_lühend` ja hakkab arendama oma anduri kaustas nii, et hiljem on lihtne merge teha. `git chekout -b dev_anduri_lühend`
