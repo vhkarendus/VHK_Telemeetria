@@ -20,9 +20,9 @@ void loop(){
   }
 
   //mootori temperatuuri anduri kontrollimine
-  Vout = analogRead(mootori_andur);
+  Vout_2 = analogRead(mootori_andur);
   
-  if(Vout<0 || Vout>1023){
+  if(Vout_2<0 || Vout_2>1023){
   Serial.println("Mootori temperatuuri andur on katki!");
   }
 }
