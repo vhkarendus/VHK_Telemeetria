@@ -2,6 +2,7 @@
 int aku_andur = A0;
 int mootori_andur = A1;
 int Vout;
+int Vout_2;
 float R1 = 10000;
 float R2, logR2, ta, tm;
 float A = 2.263322503e-03, B = 2.324372999e-04, C = 2.138068753e-07;//võrrandiks vajalikud arvud. need saab arvutada steinhart-hart calculator'i abil
@@ -25,9 +26,9 @@ void loop(){
   ta = ta - 273.15; //teisendame temperatuuri celsiustesse
 
   //mootori temperatuuri mõõtmine
-  Vout = analogRead(mootori_andur);
+  Vout_2 = analogRead(mootori_andur);
   
-  R2 = R1 * (1023.0 / (float)Vout - 1.0);
+  R2 = R1 * (1023.0 / (float)Vout_2 - 1.0);
   logR2 = log(R2);
   
   tm = (1.0 / (A + B*logR2 + C*logR2*logR2*logR2));
