@@ -4,7 +4,7 @@ int mootori_andur = A1;
 int Vout;
 float R1 = 10000;
 float R2, logR2, ta, tm;
-float A = 1.009249522e-03, B = 2.378405444e-04, C = 2.019202697e-07;//võrrandiks vajalikud arvud. need saab arvutada steinhart-hart calculator'i abil
+float A = 2.263322503e-03, B = 2.324372999e-04, C = 2.138068753e-07;//võrrandiks vajalikud arvud. need saab arvutada steinhart-hart calculator'i abil
  
 void setup(){
   Serial.begin(115200);
