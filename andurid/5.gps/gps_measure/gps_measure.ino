@@ -51,11 +51,15 @@ void loop() {
     // in case of a fix
     if (GPS.fix) {
 
-      // Location in degrees
-      // Serial.print("Google Maps location: ");
+      // // Location in degrees
+      // Serial.print(millis());
+      // Serial.print(",");
+      // Serial.print("locationInDegrees");
+      // Serial.print(",(");
       // Serial.print(GPS.latitudeDegrees, 4);
-      // Serial.print(", ");
-      // Serial.println(GPS.longitudeDegrees, 4);
+      // Serial.print(",");
+      // Serial.print(GPS.longitudeDegrees, 4);
+      // Serial.println(")");
 
       // Speed
       Serial.print(millis());
@@ -64,7 +68,7 @@ void loop() {
       Serial.print(",");
       Serial.println(GPS.speed * 1.85); // convert from knots to km/h before printing
 
-      // Altitude
+      // // Altitude
       // Serial.print(millis());
       // Serial.print(",");
       // Serial.print("altitude");
@@ -76,6 +80,8 @@ void loop() {
   else {
     c = GPS.read();
   }
+
+}
 
 // take a reading from the GPS, parse the sentence, and then do nothing with it
 void clearGPS() {
