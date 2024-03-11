@@ -1,9 +1,10 @@
 **Üldinfo:**
-Elektroonikaks läheb vaja unipolar hall effect sensorit, opampi, schmitt triggerit, (timerit)
+Elektroonikaks läheb vaja unipolar hall effect sensorit, opampi, (schmitt triggerit)
 
 
 **Märkused:**
 * Hall effect andur peab kindlasti olema unipolar
+* Schmitt triggerit läheb ainult siis vaja, kui interruptidega süsteem ei tööta. Kuna interruptid on nii või naa RISING modeis, siis Schmitt triggeri töö teeb see ise ära.
 
 
 **Komponendid:**
