@@ -18,48 +18,42 @@
 // importimised
 
 // globaalsed muutujad
-int r11 = 10000;
-int r12 = 50000;
-int r21 = 10000;
-int r22 = 50000;
-int Pin1 = A0;
-int PinK = A1;
-int Pin1Value, PinKValue, vOut1, vOutK, vIn1, vInK;
+float batterySumPin = A0;
+float battery1Pin = A1;
+
+float r1 = 20000;
+float r2 = 100000;
+
+float calibrateBattery1 = 0.0;
+float calibrateBatterySum = 0.0;
+
+float batterySumPinVal, battery1PinVal, batterySumPinV, battery1PinV, batterySumV, battery1V;
 
 void setup()
-{
-  pinMode(Pin1, INPUT);
-  pinMode(PinK, INPUT);
-  
+{  
   Serial.begin(115200);
 }
 
 void loop()
 {
-  Pin1Value = analogRead(Pin1);
-  PinKValue = analogRead(Pin2);
-  
-  // arvutab mitu volti jõuab arduino pini (mõlemad akud)
-  vOutK = PinKValue * 5 / 1023;
+  batterySumPinVal = analogRead(batterySumPin);
+  battery1PinVal = analogRead(battery1Pin);
 
-  // arvtab mitu volti on mõlemad akud
-  vInK = vOutK * ((r11 + r12) / r11);
+  batterySumPinV = batterySumPinVal / 1023 * 5;
+  battery1PinV = battery1PinVal * 5 / 1023;
 
-  // arvutab mitu volti jõuab arduino pini (üks aku)
-  vOut1 = Pin1Value * 5 / 1023;
-
-  // arvutab mitu volti on üks aku
-  vIn1 = vOut1 * ((r21 + r22) / r21);
+  batterySumV = batterySumPinV * ((r1 + r2) / r1) * calibrateBatterySum;
+  battery1V = battery1PinV * ((r1 + r2) / r1) * calibrateBattery1;
   
   Serial.print(millis());
   Serial.print(",");
   Serial.print("pingeA1");
   Serial.print(",");
-  Serial.println(vIn1);
+  Serial.println(battery1V);
 
   Serial.print(millis());
   Serial.print(",");
   Serial.print("pingeA2");
   Serial.print(",");
-  Serial.println(vInK - vIn1);
+  Serial.println(batterySumV - battery1V);
 }
