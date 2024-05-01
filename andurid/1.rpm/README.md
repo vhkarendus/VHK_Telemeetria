@@ -11,5 +11,5 @@ Elektroonikaks läheb vaja unipolar hall effect sensorit, opampi, (schmitt trigg
 
 | **Nimi**                   | **Link**                                                    | **Hind** | **Tüüp** |
 |----------------------------|-------------------------------------------------------------|----------|----------|
-| INFINEON TLE4906LHALA1     | [[https://www.lemona.ee/hall-effect-switch-unipolar-3pin.html](https://www.lemona.ee/hall-effect-switch-0-025a-to92s-3.html)](https://www.lemona.ee/hall-effect-switch-bipolar-sso.html) | 1.89     | Hall effect sensor         |
+| INFINEON TLE4906LHALA1     | [https://www.lemona.ee/hall-effect-switch-unipolar-3pin.html](https://www.lemona.ee/hall-effect-switch-0-025a-to92s-3.html)(https://www.lemona.ee/hall-effect-switch-bipolar-sso.html) | 1.89     | Hall effect sensor         |
 | Microchip - MCP6041-I/P    | [https://www.lemona.ee/ic-op-amp.html](https://www.lemona.ee/ic-op-amp-cmos-6041-dip8.html)                        | 1.24     | Operational Amplifier      |
