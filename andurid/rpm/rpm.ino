@@ -2,12 +2,9 @@
  * Main:        rpm.ino
  * Autor:       Joonatan Jürisson
  * Loodud:      10.03.2024
- * Muudetud:    11.03.2024
+ * Muudetud:    07.05.2024
  *
- * Selgitus:    See on arduino skript malli lühike kirjeldus, peamine info peab olema README failis:
- *              Selleks, et meil oleks nii ühtlane kui võimalik: 
- *              - Funktsiooni nimed peavad olema camelCase-is (ehk iga sõna algus on suur täht)
- *              - Funktsiooni nimed kirjutame inglise keeles, aga kommentaarid võid eesti keeles
+ * Selgitus:    arvutab pöördeid minutis kasutades op-ampiga võimendatud hall-effecti signaali poolt käivitatud interrupti. 
  * 
  * Teeked:
  * 
@@ -20,8 +17,8 @@
 
  // Globaalsed muutujad
 
-int magnet_count = 0;
-int rpm_pin = 5;
+int magnet_count = 1;
+int rpm_pin = 2;
 unsigned long last_interval = 0;
 float rpm = 0;
 
@@ -34,13 +31,12 @@ void motorMagnetInterrupt(){
 
 void setup(){
   Serial.begin(115200);
-  attachInterrupt(digitalPinToInterrupt(rpm_pin), motorMagnetInterrupt, RISING);
+  attachInterrupt(digitalPinToInterrupt(rpm_pin), motorMagnetInterrupt, FALLING); // interrupt triggerib siis, kui signaal läheb HIGH-ist LOW-iks (falling), sest op-ampil on pull-up resistor
 }
 
 void loop(){
   // Anduri kood
-
-    if(rpm_pin == HIGH){
+    if(digitalRead(rpm_pin) == LOW){
       if(magnet_count > 0){
         rpm = (float)60000 / (last_interval * magnet_count);
       }
