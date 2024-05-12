@@ -1,7 +1,4 @@
 {
-    "configuration": "cpu=atmega328",
     "board": "arduino:avr:nano",
-    "port": "/dev/tty.Bluetooth-Incoming-Port",
-    "programmer": "arduinoisp",
-    "sketch": "andurid/3.pinge/pinge_measure/pinge_measure.ino"
+    "port": "/dev/tty.Bluetooth-Incoming-Port"
 }

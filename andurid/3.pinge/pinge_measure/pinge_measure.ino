@@ -18,16 +18,16 @@
 // importimised
 
 // globaalsed muutujad
-float batterySumPin = A0;
-float battery1Pin = A1;
+float battery_sum_pin = A3;
+float battery_1_pin = A4;
 
-float r1 = 20000;
-float r2 = 100000;
+float divider_resistor_1 = 20000;
+float divider_resistor_2 = 100000;
 
-float calibrateBattery1 = 0.0;
-float calibrateBatterySum = 0.0;
+float calibrate_battery_1 = 0.0;
+float calibrate_battery_sum = 0.0;
 
-float batterySumPinVal, battery1PinVal, batterySumPinV, battery1PinV, batterySumV, battery1V;
+float battery_sum_pin_val, battery_1_pin_val, battery_sum_pin_v, battery_1_pin_v, battery_sum_v, battery_1_v;
 
 void setup()
 {  
@@ -36,24 +36,24 @@ void setup()
 
 void loop()
 {
-  batterySumPinVal = analogRead(batterySumPin);
-  battery1PinVal = analogRead(battery1Pin);
+  battery_sum_pin_val = analogRead(battery_sum_pin);
+  battery_1_pin_val = analogRead(battery_1_pin);
 
-  batterySumPinV = batterySumPinVal / 1023 * 5;
-  battery1PinV = battery1PinVal * 5 / 1023;
+  battery_sum_pin_v = battery_sum_pin_val / 1023 * 5;
+  battery_1_pin_v = battery_1_pin_val * 5 / 1023;
 
-  batterySumV = batterySumPinV * ((r1 + r2) / r1) * calibrateBatterySum;
-  battery1V = battery1PinV * ((r1 + r2) / r1) * calibrateBattery1;
+  battery_sum_v = battery_sum_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1) * calibrate_battery_sum;
+  battery_1_v = battery_1_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1) * calibrate_battery_1;
   
   Serial.print(millis());
   Serial.print(",");
   Serial.print("pingeA1");
   Serial.print(",");
-  Serial.println(battery1V);
+  Serial.println(battery_1_v);
 
   Serial.print(millis());
   Serial.print(",");
   Serial.print("pingeA2");
   Serial.print(",");
-  Serial.println(batterySumV - battery1V);
+  Serial.println(battery_sum_v - battery_1_v);
 }
