@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:uno",
+    "programmer": "avrisp",
+    "sketch": "andurid/2.vool/vool_measure/vool_measure.ino",
+    "port": "/dev/tty.usbmodem2101",
+    "output": "./build"
+}

@@ -39,19 +39,21 @@ void loop() {
  // Importimised
 
  // Globaalsed muutujad
-const int Ammeter = A0;
-const float arduvoltage = 5.0; 
+const int current_sensor_out = A0;
+const int current_sensor_ref = A1;
  
 void setup(){
   Serial.begin(115200);
-  pinMode(Ammeter, INPUT);
 }
 
 void loop(){
   // Anduri kood
-  int sensorValue = analogRead(Ammeter);
-  float voltage = (sensorValue / 1023.0) * arduvoltage; // muudab analog väärtuse voltideks
-  float current = ((voltage - (arduvoltage / 2.0)) / 0.01); //muudab voldid ampriteks (ACS712 formula)
+  int current_sensor_val = analogRead(current_sensor_out);
+  int current_sensor_ref_val = analogRead(current_sensor_ref);
+
+  float current_sensor_voltage = (current_sensor_val / 1023.0) * 5; // muudab analog väärtuse voltideks
+  float current_sensor_ref_voltage = (current_sensor_ref_val / 1023.0) * 5; // muudab analog väärtuse voltideks
+  float current = ((current_sensor_voltage - current_sensor_ref_voltage) / 0.01); //muudab voldid ampriteks (ACS712 formula)
 
   delay(1000); // Delay for 1 second
   // Kui anduri andmed on käes tuleb saata jadaside kaudu csv formaadis:
