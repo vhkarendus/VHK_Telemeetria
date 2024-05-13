@@ -14,6 +14,10 @@ const int thermistor_B_value = 3977;
 const int thermistor_base_temperature = 298.15; // 25C in Kelvin
 const float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
 
+// rpm
+const int rpm_magnet_count = 1;
+const int rpm_pin = 2;
+
 // current
 const int current_sensor_out = A0;
 const int current_sensor_ref = A1;
@@ -38,6 +42,10 @@ const int sd_card_cs = 10;
 int thermistor_extra_resistor_out;
 float temperature, temperature_C, thermistor_resistance;
 
+// rpm
+unsigned long rpm_last_interval = 0;
+float rpm = 0;
+
 // current
 int current_sensor_val, current_sensor_ref_val;
 float current_sensor_voltage, current_sensor_ref_voltage, current;
@@ -49,12 +57,25 @@ float battery_sum_pin_val, battery_1_pin_val, battery_sum_pin_v, battery_1_pin_v
 File output_file;
 
 
+// FUNCTIONS -------------------------
+
+void motorMagnetInterrupt(){
+  unsigned long rpm_temp_interval = millis() - rpm_last_interval;
+  if(rpm_temp_interval > 20){
+    rpm_last_interval = rpm_temp_interval;
+  }
+}
+
+
 // SETUP -----------------------------
 
 void setup() {
   // serial monitor
   Serial.begin(115200);
   while (!Serial) {}
+
+  // rpm
+  attachInterrupt(digitalPinToInterrupt(rpm_pin), motorMagnetInterrupt, FALLING); // interrupt triggerib siis, kui signaal läheb HIGH-ist LOW-iks (falling), sest op-ampil on pull-up resistor
 
   // SD card
   SD.begin(sd_card_cs);
@@ -98,6 +119,31 @@ void loop() {
   // Serial.print("tm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
   // Serial.print(",");
   // Serial.println(temperature_C);
+
+
+  // rpm
+  if(digitalRead(rpm_pin) == LOW){
+    if(rpm_magnet_count > 0){
+      rpm = (float)60000 / (rpm_last_interval * rpm_magnet_count);
+    }
+    else
+    {
+      rpm = 0;
+    } 
+  }
+
+  output_file.print(millis());
+  output_file.print(",");
+  output_file.print("rpm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
+  output_file.print(",");
+  output_file.println(rpm);
+
+  // Serial.print(millis());
+  // Serial.print(",");
+  // Serial.print("rpm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
+  // Serial.print(",");
+  // Serial.println(rpm);
+
 
 
   // current
