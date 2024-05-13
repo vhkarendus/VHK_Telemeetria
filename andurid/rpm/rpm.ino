@@ -18,21 +18,21 @@
 
  // Globaalsed muutujad
 
-const int magnet_count = 1;
+const int rpm_magnet_count = 1;
 const int rpm_pin = 2;
-volatile unsigned long last_interval = 0;
-volatile unsigned long last_time = 0;
-volatile unsigned long current_time = 0;
+volatile unsigned long rpm_last_interval = 0;
+volatile unsigned long rpm_last_time = 0;
+volatile unsigned long rpm_current_time = 0;
 volatile float rpm = 0;
 
 void motorMagnetInterrupt(){
-  current_time = millis();
-  unsigned long temp_interval = current_time - last_time ;
-  if(temp_interval > 750){ // debounceing, hetkel kõrge väärtus, hall effect näib probleemne olevat
-    last_interval = temp_interval;
-    last_time = current_time;
-    if(magnet_count > 0){
-      rpm = (float)60000 / (last_interval * magnet_count);
+  rpm_current_time = millis();
+  unsigned long rpm_temp_interval = rpm_current_time - rpm_last_time ;
+  if(rpm_temp_interval > 750){ // debounceing, hetkel kõrge väärtus, hall effect näib probleemne olevat
+    rpm_last_interval = rpm_temp_interval;
+    rpm_last_time = rpm_current_time;
+    if(rpm_magnet_count > 0){
+      rpm = (float)60000 / (rpm_last_interval * rpm_magnet_count);
     }
     else{
       rpm = 0;
