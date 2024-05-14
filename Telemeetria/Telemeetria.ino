@@ -62,11 +62,43 @@ unsigned long data_num = 0;
 
 // FUNCTIONS -------------------------
 
+// rpm
+
 void motorMagnetInterrupt(){
   unsigned long rpm_temp_interval = millis() - rpm_last_interval;
   if(rpm_temp_interval > 20){
     rpm_last_interval = rpm_temp_interval;
   }
+}
+
+// SD card
+void logData() 
+{
+  output_file = SD.open("output.csv", FILE_WRITE);
+  if (!output_file) {
+    Serial.println("File not open!!");
+  }
+
+  // log data in format (num, time, temperature_ta, temperature_tm, rpm, current, battery_1_v, battery_2_v)
+  output_file.print(data_num);
+  output_file.print(",");
+  output_file.print(millis());
+  output_file.print(",");
+  output_file.print(temperature_C_ta);
+  output_file.print(",");
+  output_file.print(temperature_C_tm);
+  output_file.print(",");
+  output_file.print(rpm);
+  output_file.print(",");
+  output_file.print(current);
+  output_file.print(",");
+  output_file.print(battery_1_v);
+  output_file.print(",");
+  output_file.println(battery_2_v);
+
+  data_num++;
+
+  output_file.close();
 }
 
 
@@ -210,29 +242,7 @@ void loop() {
 
 
   // SD card
-  output_file = SD.open("output.csv", FILE_WRITE);
-  if (!output_file) {
-    Serial.println("File not open!!");
+  if (millis() > log_interval * data_num) {
+    logData();
   }
-
-  // log data in format (num, time, temperature_ta, temperature_tm, rpm, current, battery_1_v, battery_2_v)
-  output_file.print(data_num);
-  output_file.print(",");
-  output_file.print(millis());
-  output_file.print(",");
-  output_file.print(temperature_C_ta);
-  output_file.print(",");
-  output_file.print(temperature_C_tm);
-  output_file.print(",");
-  output_file.print(rpm);
-  output_file.print(",");
-  output_file.print(current);
-  output_file.print(",");
-  output_file.print(battery_1_v);
-  output_file.print(",");
-  output_file.println(battery_2_v);
-
-  data_num++;
-
-  output_file.close();
 }
