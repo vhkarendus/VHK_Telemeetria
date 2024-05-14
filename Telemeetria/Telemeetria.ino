@@ -7,7 +7,8 @@
 // CONSTANTS ------------------------
 
 // temperature
-const int thermistor_pin = A2;
+const int thermistor_pin_ta = A2;
+const int thermistor_pin_tm = A3;
 const int thermistor_extra_resistor = 5100;
 const int thermistor_base_resistance = 3300;
 const int thermistor_B_value = 3977;
@@ -23,8 +24,8 @@ const int current_sensor_out = A0;
 const int current_sensor_ref = A1;
 
 // voltage
-float battery_sum_pin = A3;
-float battery_1_pin = A4;
+float battery_sum_pin = A4;
+float battery_1_pin = A5;
 
 float divider_resistor_1 = 20000;
 float divider_resistor_2 = 100000;
@@ -34,13 +35,14 @@ float calibrate_battery_sum = 0.0; // erase earlier calibration before calibrati
 
 // SD card
 const int sd_card_cs = 10;
+const int log_interval = 500;
 
 
 // VARIABLES -------------------------
 
 // temperature
-int thermistor_extra_resistor_out;
-float temperature, temperature_C, thermistor_resistance;
+int thermistor_extra_resistor_out_ta, thermistor_extra_resistor_out_tm;
+float temperature_ta, temperature_tm, temperature_C_ta, temperature_C_tm, thermistor_resistance_ta, thermistor_resistance_tm;
 
 // rpm
 unsigned long rpm_last_interval = 0;
@@ -51,10 +53,11 @@ int current_sensor_val, current_sensor_ref_val;
 float current_sensor_voltage, current_sensor_ref_voltage, current;
 
 // voltage
-float battery_sum_pin_val, battery_1_pin_val, battery_sum_pin_v, battery_1_pin_v, battery_sum_v, battery_1_v;
+float battery_sum_pin_val, battery_1_pin_val, battery_sum_pin_v, battery_1_pin_v, battery_sum_v, battery_1_v, battery_2_v;
 
 // SD card
 File output_file;
+unsigned long data_num = 0;
 
 
 // FUNCTIONS -------------------------
@@ -88,31 +91,35 @@ void setup() {
 
 void loop() {
 
-  // SD card
-  output_file = SD.open("output.csv", FILE_WRITE);
-  if (!output_file) {
-    Serial.println("File not open!!");
-  }
-
   // temperature
-  thermistor_extra_resistor_out = analogRead(thermistor_pin);
-  thermistor_resistance = thermistor_extra_resistor * (1023.0 / (float)thermistor_extra_resistor_out - 1.0);
+  thermistor_extra_resistor_out_ta = analogRead(thermistor_pin_ta);
+  thermistor_extra_resistor_out_tm = analogRead(thermistor_pin_tm);
+
+  thermistor_resistance_ta = thermistor_extra_resistor * (1023.0 / (float)thermistor_extra_resistor_out_ta - 1.0);
+  thermistor_resistance_tm = thermistor_extra_resistor * (1023.0 / (float)thermistor_extra_resistor_out_tm - 1.0);
 
 
-  temperature = thermistor_resistance / thermistor_base_resistance;
-  temperature = log(temperature);
-  temperature /= thermistor_B_value;
-  temperature += 1 / (thermistor_base_temperature + 273.15);
-  temperature = 1 / temperature;
+  temperature_ta = thermistor_resistance_ta / thermistor_base_resistance;
+  temperature_ta = log(temperature_ta);
+  temperature_ta /= thermistor_B_value;
+  temperature_ta += 1 / (thermistor_base_temperature);
+  temperature_ta = 1 / temperature_ta;
 
-  temperature_C = temperature - 273.15;
+  temperature_tm = thermistor_resistance_tm / thermistor_base_resistance;
+  temperature_tm = log(temperature_tm);
+  temperature_tm /= thermistor_B_value;
+  temperature_tm += 1 / (thermistor_base_temperature);
+  temperature_tm = 1 / temperature_tm;
+
+  temperature_C_ta = temperature_ta - 273.15;
+  temperature_C_tm = temperature_tm - 273.15;
 
 
-  output_file.print(millis());
-  output_file.print(",");
-  output_file.print("tm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  output_file.print(",");
-  output_file.println(temperature_C);
+  // output_file.print(millis());
+  // output_file.print(",");
+  // output_file.print("tm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
+  // output_file.print(",");
+  // output_file.println(temperature_C);
 
   // Serial.print(millis());
   // Serial.print(",");
@@ -132,11 +139,11 @@ void loop() {
     } 
   }
 
-  output_file.print(millis());
-  output_file.print(",");
-  output_file.print("rpm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  output_file.print(",");
-  output_file.println(rpm);
+  // output_file.print(millis());
+  // output_file.print(",");
+  // output_file.print("rpm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
+  // output_file.print(",");
+  // output_file.println(rpm);
 
   // Serial.print(millis());
   // Serial.print(",");
@@ -154,11 +161,11 @@ void loop() {
   current_sensor_ref_voltage = (current_sensor_ref_val / 1023.0) * 5; // muudab analog väärtuse voltideks
   current = ((current_sensor_voltage - current_sensor_ref_voltage) / 0.01); //muudab voldid ampriteks (ACS712 formula)
 
-  output_file.print(millis());
-  output_file.print(",");
-  output_file.print("vool"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  output_file.print(",");
-  output_file.println(current);
+  // output_file.print(millis());
+  // output_file.print(",");
+  // output_file.print("vool"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
+  // output_file.print(",");
+  // output_file.println(current);
 
   // Serial.print(millis());
   // Serial.print(",");
@@ -175,18 +182,19 @@ void loop() {
 
   battery_sum_v = battery_sum_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1) * calibrate_battery_sum;
   battery_1_v = battery_1_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1) * calibrate_battery_1;
+  battery_2_v = battery_sum_v - battery_1_v;
   
-  output_file.print(millis());
-  output_file.print(",");
-  output_file.print("pingeA1");
-  output_file.print(",");
-  output_file.println(battery_1_v);
+  // output_file.print(millis());
+  // output_file.print(",");
+  // output_file.print("pingeA1");
+  // output_file.print(",");
+  // output_file.println(battery_1_v);
 
-  output_file.print(millis());
-  output_file.print(",");
-  output_file.print("pingeA2");
-  output_file.print(",");
-  output_file.println(battery_sum_v - battery_1_v);
+  // output_file.print(millis());
+  // output_file.print(",");
+  // output_file.print("pingeA2");
+  // output_file.print(",");
+  // output_file.println(battery_sum_v - battery_1_v);
 
   // Serial.print(millis());
   // Serial.print(",");
@@ -202,5 +210,29 @@ void loop() {
 
 
   // SD card
+  output_file = SD.open("output.csv", FILE_WRITE);
+  if (!output_file) {
+    Serial.println("File not open!!");
+  }
+
+  // log data in format (num, time, temperature_ta, temperature_tm, rpm, current, battery_1_v, battery_2_v)
+  output_file.print(data_num);
+  output_file.print(",");
+  output_file.print(millis());
+  output_file.print(",");
+  output_file.print(temperature_C_ta);
+  output_file.print(",");
+  output_file.print(temperature_C_tm);
+  output_file.print(",");
+  output_file.print(rpm);
+  output_file.print(",");
+  output_file.print(current);
+  output_file.print(",");
+  output_file.print(battery_1_v);
+  output_file.print(",");
+  output_file.println(battery_2_v);
+
+  data_num++;
+
   output_file.close();
 }
