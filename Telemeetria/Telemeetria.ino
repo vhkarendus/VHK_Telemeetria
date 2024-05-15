@@ -106,6 +106,8 @@ void logData()
   output_file.print(",");
   output_file.println(battery_2_v);
 
+  Serial.println(rpm);
+
   data_num++;
 
   output_file.close();
@@ -243,7 +245,7 @@ void loop() {
 
 
   // SD card
-  if (millis() > log_interval * data_num) {
+  if (millis() >= log_interval * data_num) {
     logData();
   }
 }
