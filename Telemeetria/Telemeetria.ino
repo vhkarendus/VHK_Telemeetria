@@ -45,8 +45,10 @@ int thermistor_extra_resistor_out_ta, thermistor_extra_resistor_out_tm;
 float temperature_ta, temperature_tm, temperature_C_ta, temperature_C_tm, thermistor_resistance_ta, thermistor_resistance_tm;
 
 // rpm
-unsigned long rpm_last_interval = 0;
-float rpm = 0;
+volatile unsigned long rpm_last_interval = 0;
+volatile unsigned long rpm_last_time = 0;
+volatile unsigned long rpm_current_time = 0;
+volatile float rpm = 0;
 
 // current
 int current_sensor_val, current_sensor_ref_val;
@@ -65,9 +67,17 @@ unsigned long data_num = 0;
 // rpm
 
 void motorMagnetInterrupt(){
-  unsigned long rpm_temp_interval = millis() - rpm_last_interval;
-  if(rpm_temp_interval > 20){
+  rpm_current_time = millis();
+  unsigned long rpm_temp_interval = rpm_current_time - rpm_last_time ;
+  if(rpm_temp_interval > 750){ // debounceing, hetkel kõrge väärtus, hall effect näib probleemne olevat
     rpm_last_interval = rpm_temp_interval;
+    rpm_last_time = rpm_current_time;
+    if(rpm_magnet_count > 0){
+      rpm = (float)60000 / (rpm_last_interval * rpm_magnet_count);
+    }
+    else{
+      rpm = 0;
+    } 
   }
 }
 
@@ -110,7 +120,7 @@ void setup() {
   while (!Serial) {}
 
   // rpm
-  attachInterrupt(digitalPinToInterrupt(rpm_pin), motorMagnetInterrupt, FALLING); // interrupt triggerib siis, kui signaal läheb HIGH-ist LOW-iks (falling), sest op-ampil on pull-up resistor
+  attachInterrupt(digitalPinToInterrupt(rpm_pin), motorMagnetInterrupt, RISING); // funktsioon triggerib siis, kui signaal läheb LOW-ist HIGH-iks (rising)
 
   // SD card
   SD.begin(sd_card_cs);
@@ -161,15 +171,6 @@ void loop() {
 
 
   // rpm
-  if(digitalRead(rpm_pin) == LOW){
-    if(rpm_magnet_count > 0){
-      rpm = (float)60000 / (rpm_last_interval * rpm_magnet_count);
-    }
-    else
-    {
-      rpm = 0;
-    } 
-  }
 
   // output_file.print(millis());
   // output_file.print(",");
