@@ -65,7 +65,6 @@ unsigned long data_num = 0;
 // FUNCTIONS -------------------------
 
 // rpm
-
 void motorMagnetInterrupt(){
   rpm_current_time = millis();
   unsigned long rpm_temp_interval = rpm_current_time - rpm_last_time ;
