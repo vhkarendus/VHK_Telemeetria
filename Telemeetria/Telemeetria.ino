@@ -12,8 +12,7 @@ const int thermistor_pin_tm = A3;
 const int thermistor_extra_resistor = 5100;
 const int thermistor_base_resistance = 3300;
 const int thermistor_B_value = 3977;
-const int thermistor_base_temperature = 298.15; // 25C in Kelvin
-const float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
+const int thermistor_base_temperature = 25; // in C
 
 // rpm
 const int rpm_magnet_count = 1;
@@ -105,7 +104,7 @@ void logData()
   output_file.print(",");
   output_file.println(battery_2_v);
 
-  Serial.println(rpm);
+  Serial.println(temperature_C_tm);
 
   data_num++;
 
@@ -145,13 +144,13 @@ void loop() {
   temperature_ta = thermistor_resistance_ta / thermistor_base_resistance;
   temperature_ta = log(temperature_ta);
   temperature_ta /= thermistor_B_value;
-  temperature_ta += 1 / (thermistor_base_temperature);
+  temperature_ta += 1 / (thermistor_base_temperature + 273.15);
   temperature_ta = 1 / temperature_ta;
 
   temperature_tm = thermistor_resistance_tm / thermistor_base_resistance;
   temperature_tm = log(temperature_tm);
   temperature_tm /= thermistor_B_value;
-  temperature_tm += 1 / (thermistor_base_temperature);
+  temperature_tm += 1 / (thermistor_base_temperature + 273.15);
   temperature_tm = 1 / temperature_tm;
 
   temperature_C_ta = temperature_ta - 273.15;
