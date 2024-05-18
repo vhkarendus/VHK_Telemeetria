@@ -29,8 +29,8 @@ float battery_1_pin = A5;
 float divider_resistor_1 = 20000;
 float divider_resistor_2 = 100000;
 
-float calibrate_battery_1 = 0.0; // erase earlier calibration before calibrating again!!
-float calibrate_battery_sum = 0.0; // erase earlier calibration before calibrating again!!
+float calibrate_battery_1 = 1.026; // erase earlier calibration before calibrating again!!
+float calibrate_battery_2 = 1.089; // erase earlier calibration before calibrating again!!
 
 // SD card
 const int sd_card_cs = 10;
@@ -104,7 +104,8 @@ void logData()
   output_file.print(",");
   output_file.println(battery_2_v);
 
-  Serial.println(temperature_C_tm);
+  Serial.println(battery_1_v);
+  Serial.println(battery_2_v);
 
   data_num++;
 
@@ -157,35 +158,6 @@ void loop() {
   temperature_C_tm = temperature_tm - 273.15;
 
 
-  // output_file.print(millis());
-  // output_file.print(",");
-  // output_file.print("tm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  // output_file.print(",");
-  // output_file.println(temperature_C);
-
-  // Serial.print(millis());
-  // Serial.print(",");
-  // Serial.print("tm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  // Serial.print(",");
-  // Serial.println(temperature_C);
-
-
-  // rpm
-
-  // output_file.print(millis());
-  // output_file.print(",");
-  // output_file.print("rpm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  // output_file.print(",");
-  // output_file.println(rpm);
-
-  // Serial.print(millis());
-  // Serial.print(",");
-  // Serial.print("rpm"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  // Serial.print(",");
-  // Serial.println(rpm);
-
-
-
   // current
   current_sensor_val = analogRead(current_sensor_out);
   current_sensor_ref_val = analogRead(current_sensor_ref);
@@ -194,17 +166,6 @@ void loop() {
   current_sensor_ref_voltage = (current_sensor_ref_val / 1023.0) * 5; // muudab analog väärtuse voltideks
   current = ((current_sensor_voltage - current_sensor_ref_voltage) / 0.01); //muudab voldid ampriteks (ACS712 formula)
 
-  // output_file.print(millis());
-  // output_file.print(",");
-  // output_file.print("vool"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  // output_file.print(",");
-  // output_file.println(current);
-
-  // Serial.print(millis());
-  // Serial.print(",");
-  // Serial.print("vool"); // siin oleks rpm, ta, tm, vool, pingeA1, pingeA2, gps
-  // Serial.print(",");
-  // Serial.println(current);
 
   // voltage
   battery_sum_pin_val = analogRead(battery_sum_pin);
@@ -213,34 +174,10 @@ void loop() {
   battery_sum_pin_v = battery_sum_pin_val / 1023 * 5;
   battery_1_pin_v = battery_1_pin_val * 5 / 1023;
 
-  battery_sum_v = battery_sum_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1) * calibrate_battery_sum;
+  battery_sum_v = battery_sum_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1);
   battery_1_v = battery_1_pin_v * ((divider_resistor_1 + divider_resistor_2) / divider_resistor_1) * calibrate_battery_1;
-  battery_2_v = battery_sum_v - battery_1_v;
+  battery_2_v = (battery_sum_v - battery_1_v) * calibrate_battery_2;
   
-  // output_file.print(millis());
-  // output_file.print(",");
-  // output_file.print("pingeA1");
-  // output_file.print(",");
-  // output_file.println(battery_1_v);
-
-  // output_file.print(millis());
-  // output_file.print(",");
-  // output_file.print("pingeA2");
-  // output_file.print(",");
-  // output_file.println(battery_sum_v - battery_1_v);
-
-  // Serial.print(millis());
-  // Serial.print(",");
-  // Serial.print("pingeA1");
-  // Serial.print(",");
-  // Serial.println(battery_1_v);
-
-  // Serial.print(millis());
-  // Serial.print(",");
-  // Serial.print("pingeA2");
-  // Serial.print(",");
-  // Serial.println(battery_sum_v - battery_1_v);
-
 
   // SD card
   if (millis() >= log_interval * data_num) {
