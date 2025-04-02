@@ -1,12 +1,25 @@
 # Telemeetria UI
 
-Algne versioon. Võtab sisendina csv faili, praegu valimine kuupäeva järgi, hiljem peaks nime järgi tegema või kuidagi teisiti. Andurite graafikuid saab kokku panna, saab eraldi vaadata.
-Testimis csv failid ka ja nende loomise programm.
+Võtab sisendina csv faili, praegu on faili valimine kuupäeva järgi nii et faili nimi peaks olema formaadis **yyyy-mm-dd*.txt***. 
+
+Failide sisu peaks olema formaadis: "data_num, millis, temperature_C_ta, rpm, current, battery_1_v, battery_2_v" (rida failis)
+
+Rakenduses saab andurite graafikud kokku panna, aga ka neid eraldi vaadata.
+
+Testimiseks CSV failide loomis rakendus on vales formaadis, nii et seda ei saa kasutada! See on siin alles, et see kunagi ümber teha 
 
 ## Teha
-Oleks vaja määrata graafikute suurused ja muu selline. Selle jaoks on vaja teada mis kujul tulevad andmed, mis vahemikes need on (võibolla ei ole oluline). On vaja ka panna paika õiged andurite nimed ja nende leidmine sellest csv failist, sest praegu on need suvaliselt. Ilmselt on veel asju lisada vaja kui saame teada mida täpsemalt näha on vaja. Kindlasti vaja ka need suurused mida tuleb arvutada (distants, võimsus, mahtuvus, kiirus ja vb veel)
+- arvutatud väärtused - kiirus (ülekande, diameetri ja rpm põhjal), võimsus (pinge ja vool), efektiivsus (kui palju võimsust kiiruseks muutub)
 
 ## Kasutamine
 Lae alla streamlit ja bokeh (ja python) õiged versioonid. Vt streamlit/ bokeh lehelt kuidas ja mis versioonid.
+Vaja allalaadida: StreamLit, Bokeh (kindlasti versioon 2.4.3), Python
+[Streamliti lehekülg](https://docs.streamlit.io/get-started/installation)
+[Pythoni lehekülg](https://www.python.org/downloads/)
+```
+pip install streamlit
+pip install bokeh
+```
 
-streamlit run telemeetria_ui.py
+Samas kaustas andmete failiga jooksuta:
+```streamlit run telem_UI.py```
