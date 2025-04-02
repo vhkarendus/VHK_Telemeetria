@@ -20,4 +20,6 @@ pip install bokeh
 ```
 
 Samas kaustas andmete failiga jooksuta:
-```streamlit run telem_UI.py```
+```
+streamlit run telem_UI.py
+```
