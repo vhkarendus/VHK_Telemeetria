@@ -12,7 +12,7 @@ Testimiseks CSV failide loomis rakendus on vales formaadis, nii et seda ei saa k
 - arvutatud väärtused - kiirus (ülekande, diameetri ja rpm põhjal), võimsus (pinge ja vool), efektiivsus (kui palju võimsust kiiruseks muutub)
 
 ## Kasutamine
-Vaja allalaadida: [StreamLit](https://docs.streamlit.io/get-started/installation), Bokeh (kindlasti versioon 2.4.3), [Python](https://www.python.org/downloads/)
+Vaja allalaadida: [StreamLit](https://docs.streamlit.io/get-started/installation), Bokeh (versioon 2.4.3), [Python](https://www.python.org/downloads/)
 
 ```
 pip install streamlit
