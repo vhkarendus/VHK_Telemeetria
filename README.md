@@ -15,10 +15,4 @@ Siin on andurid (sulgudes on anduri lühend).
 4. Mõistlik on alustada mõõtmiskoodiga, siis pärast on juba teadmised kuidas õige andur peaks töötama.
 
 ## UI
-Kasutame [streamlit](https://streamlit.io) koos [bokeh](https://bokeh.org) ja [matplotlib](https://matplotlib.org)
-
-Enne hakkata programmeerimima oleks vaja tutvuda nende teekedega. Selleks on need tutorialid:
-- [streamlit installation](https://docs.streamlit.io/get-started/installation)
-- [streamlit fundamentals](https://docs.streamlit.io/get-started/fundamentals/main-concepts)
-- [streamlit create an app](https://docs.streamlit.io/get-started/tutorials/create-an-app)
-- [matplotlib tutorial](https://matplotlib.org/stable/tutorials/pyplot.html#sphx-glr-tutorials-pyplot-py)
+# **MINE KAUSTA UI - SEAL TÄPSED JUHISED README's**
