@@ -2,8 +2,8 @@
 Rakendus telemeetria komplekti kogutud andmete vaatamiseks. Rakenduses saab andurite graafikud kokku panna, aga ka neid eraldi vaadata.
 
 
-Võtab sisendina csv faili, praegu on faili valimine kuupäeva järgi nii et faili nimi peab olema formaadis **yyyy-mm-dd.txt** ja telemeetria rakenduse peaks käivitama failidega samas kaustas. 
-Failide sisu peab olema formaadis: *"data_num, millis, temperature_C_ta, rpm, current, battery_1_v, battery_2_v"* (rida failis)
+- Võtab sisendina csv faili, praegu on faili valimine kuupäeva järgi nii et faili nimi peab olema formaadis **yyyy-mm-dd.txt** ja telemeetria rakenduse peaks käivitama failidega samas kaustas. 
+- Failide sisu peab olema formaadis: *"data_num, millis, temperature_C_ta, rpm, current, battery_1_v, battery_2_v"* (rida failis)
 
 *(Testimiseks CSV failide loomis rakendus on vales formaadis, nii et seda ei saa kasutada. See on siin alles, et see kunagi ümber teha)*
 ## Puudu
