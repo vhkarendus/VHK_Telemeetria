@@ -13,7 +13,7 @@ Rakendus telemeetria komplekti kogutud andmete vaatamiseks. Rakenduses saab andu
 Vaja allalaadida: [StreamLit](https://docs.streamlit.io/get-started/installation), Bokeh (versioon 2.4.3), [Python](https://www.python.org/downloads/). Pythoni jaoks uuri oma süsteemi jaoks ise, StreamLit ja Bokeh saab [pip](https://pypi.org/project/pip/)'iga:
 ```
 pip install streamlit
-pip install bokeh
+pip install bokeh==2.4.3
 ```
 
 Samas kaustas andmete failiga jooksuta:
