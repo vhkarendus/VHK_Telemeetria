@@ -1,6 +1,6 @@
 # Telemeetria UI
 
-Võtab sisendina csv faili, praegu on faili valimine kuupäeva järgi nii et faili nimi peaks olema formaadis **yyyy-mm-dd*.txt***. 
+Võtab sisendina csv faili, praegu on faili valimine kuupäeva järgi nii et faili nimi peaks olema formaadis **yyyy-mm-dd.txt**. 
 
 Failide sisu peaks olema formaadis: "data_num, millis, temperature_C_ta, rpm, current, battery_1_v, battery_2_v" (rida failis)
 
