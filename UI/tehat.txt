@@ -1,0 +1,8 @@
+kiirus
+	rmp
+	diameeter
+	ylekanne
+v6imsus
+efektiivsus
+	kui palju voimsust kiiruseks muutub
+
