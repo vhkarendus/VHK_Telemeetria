@@ -25,10 +25,4 @@ Siin on andurid (sulgudes on anduri lühend).
 - Micro SD card module (5x) - [Amazon](https://www.amazon.de/-/en/ANGEEK-Module-Reader-Arduino-Microcontrollers/dp/B07S6K3RVK/ref=sr_1_4?crid=1VXZP0IE5IY2I&dib=eyJ2IjoiMSJ9.Wd8bGir_Rr53tlAkofkv2YZ_MOz8MVdkb58a6l1kiyrLoaXV4dtn21Bz8rQ6FhQvhkXmGMQtkOLaHayH0JnVVJe8ms-4jVQ7hdRj0qdxQJaSTE5m3mBWE10AsYtsSsQDe8Zp45YK7JzpMzE1cXl9dawvtGbOCQwCqO0cDXBVVI813kbQGXeWFyFGDgWjVDeCbPWF6e5qe85Kxdz23D2ZY-3fcwqAiCDIduUeOdUWxZw.z0X4F8oAnrqWwukdockZu1hSC8VzKt5a69itKWlwyPc&dib_tag=se&keywords=micro+sd+card+arduino&qid=1711121599&sprefix=micro+sd+card+arduino,aps,124&sr=8-4)(SPI)
 
 ## UI
-Kasutame [streamlit](https://streamlit.io) koos [bokeh](https://bokeh.org) ja [matplotlib](https://matplotlib.org)
-
-Enne hakkata programmeerimima oleks vaja tutvuda nende teekedega. Selleks on need tutorialid:
-- [streamlit installation](https://docs.streamlit.io/get-started/installation)
-- [streamlit fundamentals](https://docs.streamlit.io/get-started/fundamentals/main-concepts)
-- [streamlit create an app](https://docs.streamlit.io/get-started/tutorials/create-an-app)
-- [matplotlib tutorial](https://matplotlib.org/stable/tutorials/pyplot.html#sphx-glr-tutorials-pyplot-py)
+# **MINE KAUSTA UI - SEAL TÄPSED JUHISED README's**
