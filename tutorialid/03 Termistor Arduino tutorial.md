@@ -54,13 +54,13 @@
 
 ## 2. Termistori ühendamine
 
-### Pinge jagaja skeem
+### Pingejaguri skeem
 ![Termistori skeem](images/03-termistor/03-termistor_skeem.png)
 ![Termistori Arduino skeem](images/03-termistor/03-termistor_skeem_Arduino.png)
 
-### Mis on pinge jagaja?
+### Mis on pingejagur?
 
-**Pinge jagaja** on lihtne vooluahel, mis jagab sisendpinge kahe takisti vahel.
+**Pingejagur** on lihtne vooluahel, mis jagab sisendpinge kahe takisti vahel.
 
 **Valem:**
 
@@ -94,7 +94,7 @@ või lihtsustatud kujul:
 $$R_{NTC} = R_{fixed} × (\frac{V_{in}}{V_{out}} - 1)$$
 
 ### Miks vajame fikseeritud takistit?
-Arduino mõõdab PINGET, mitte takistust. Pinge jagaja teisendab takistuse muutuse pingeks.
+Arduino mõõdab PINGET, mitte takistust. Pingejagur teisendab takistuse muutuse pingeks.
 
 ❗**Soovitus**: Kasuta sama väärtusega takistit kui termistor @ 25°C
 - 10kΩ termistor → 10kΩ takisti  
@@ -180,7 +180,7 @@ void loop() {
   // Arvuta pinge (ADC → Volt)
   float V = adc * (VCC / 1023.0);
   
-  // Arvuta termistori takistus (pinge jagaja valem)
+  // Arvuta termistori takistus (Pingejaguri valem)
   float R = R_FIXED * (VCC / V - 1.0);
   
   Serial.print(adc);
@@ -491,8 +491,8 @@ void loop() {
 
 ✅ Termistor on lihtne ja odav temp andur  
 ✅ Arduino ADC teisendab pinge numbriks (0-1023)  
-✅ Pinge jagaja muudab takistuse muutuse pingeks  
-✅ Ühenda pinge jagajaga (R_fixed + NTC)  
+✅ Pingejagur muudab takistuse muutuse pingeks  
+✅ Ühenda pingejaguriga (R_fixed + NTC)  
 ✅ Kasuta B-väärtuse võrrandit (piisav enamikuks)  
 ✅ Kalibreeri täpsuse jaoks  
 ✅ Kontrolli kas vajad silumist/filtreerimist  
