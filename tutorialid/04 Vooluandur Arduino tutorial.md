@@ -174,7 +174,7 @@ WCS1700 moodulil on **4 pind**:
 - **Aout** - Analoogne väljundpinge (proportsionaalne vooluga)
 - **Dout** - Digitaalne väljund (ülekoormuse võrdleja, vajadusel)
 
-![WCS1700 pildid](images\04-vooluandur\04-vooluandur.png)
+![WCS1700 pildid](images/04-vooluandur/04-vooluandur.png)
 
 ---
 
@@ -183,11 +183,11 @@ WCS1700 moodulil on **4 pind**:
 ### Testimiseks Põhiskeem
 
 
-![WCS1700 ühenduse skeem](images\04-vooluandur\04-vooluandur_skeem_Arduino.png)
+![WCS1700 ühenduse skeem](images/04-vooluandur/04-vooluandur_skeem_Arduino.png)
 
 Kuidas vooluahel peaks välja nägema:
 
-![WCS1700 ühenduse skeem](images\04-vooluandur\04-ahel_kokku.jpg)
+![WCS1700 ühenduse skeem](images/04-vooluandur/04-ahel_kokku.jpg)
 
 ### Kaabli läbiviimine
 
